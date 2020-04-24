@@ -38,7 +38,7 @@ Within smtp:
 
 Within source:
 * `from`: *Required.* Email Address to be sent from.
-* `to`: *Required.Conditionally.* Array of email addresses to send email to.  Not required if job params contains a file reference that has to recipients.
+* `to`: *Required.Conditionally.* **type: list** Array of email addresses to send email to.  Not required if job params contains a file reference that has to recipients.
 * `cc`: *Optional* Array of email addresses to cc send email to.
 * `bcc`: *Optional* Array of email addresses to bcc send email to.
 
@@ -101,20 +101,20 @@ This is an output-only resource, so `check` and `in` actions are no-ops.
 
 #### Parameters
 
-* `headers`: *Optional.* Path to plain text file containing additional mail headers
-* `subject`: *Optional.* Path to plain text file containing the subject. Either `subject` or `subject_text` required. `subject_text` takes precedence.
-* `subject_text`: *Optional.* The subject as text. Either `subject` or `subject_text` required. `subject_text` takes precedence.
-* `body`: *Optional.* Path to file containing the email body. Either `body` or `body_text` required. `body_text` takes precedence.
-* `body_text`: *Optional.* The email body as text. Either `body` or `body_text` required. `body_text` takes precedence.
-* `send_empty_body`: *Optional.* If true, send the email even if the body is empty (defaults to `false`).
-* `to`: *Optional.* Path to plain text file containing recipients which could be determined at build time. You can run a task before, which figures out the email of the person who committed last to a git repository (`git -C $source_path --no-pager show $(git -C $source_path rev-parse HEAD) -s --format='%ae' > output/email.txt`).  This file can contain `,` delimited list of email address if wanting to send to multiples.
-* `to_text`: *Optional.* The `,` delimited list of to addresses. `to_text` appends to any `to` in params or source
+* `headers`: *Optional.* **type: string** Path to plain text file containing additional mail headers
+* `subject`: *Optional.* **type: string** Path to plain text file containing the subject. Either `subject` or `subject_text` required. `subject_text` takes precedence.
+* `subject_text`: *Optional.* **type: string** The subject as text. Either `subject` or `subject_text` required. `subject_text` takes precedence.
+* `body`: *Optional.* **type: string** Path to file containing the email body. Either `body` or `body_text` required. `body_text` takes precedence.
+* `body_text`: *Optional.* **type: string** The email body as text. Either `body` or `body_text` required. `body_text` takes precedence.
+* `send_empty_body`: *Optional.* **type: bool**If true, send the email even if the body is empty (defaults to `false`).
+* `to`: *Optional.* **type: string** Path to plain text file containing recipients which could be determined at build time. You can run a task before, which figures out the email of the person who committed last to a git repository (`git -C $source_path --no-pager show $(git -C $source_path rev-parse HEAD) -s --format='%ae' > output/email.txt`).  This file can contain `,` delimited list of email address if wanting to send to multiples.
+* `to_text`: *Optional.* **type: list** The `,` delimited list of to addresses. `to_text` appends to any `to` in params or source
 * `cc`: *Optional.* Path to plain text file containing recipients which could be determined at build time. This file can contain `,` delimited list of email address if wanting to send to multiples.
 * `cc_text`: *Optional.* The `,` delimited list of cc addresses. `cc_text` appends to any `cc` in params or source
-* `bcc`: *Optional.* Path to plain text file containing recipients which could be determined at build time. This file can contain `,` delimited list of email address if wanting to send to multiples.
+* `bcc`: *Optional.* **type: list** Path to plain text file containing recipients which could be determined at build time. This file can contain `,` delimited list of email address if wanting to send to multiples.
 * `bcc_text`: *Optional.* The `,` delimited list of bcc addresses. `bcc_text` appends to any `bcc` in params or source
 * `debug`: *Optional.* If set to `true` additional information send to stderr
-* `attachment_globs:` *Optional.* If provided will attach any file to the email that matches the glob path(s)
+* `attachment_globs:` *Optional.* **type: list** If provided will attach any file to the email that matches the glob path(s)
 
 For example, a build plan might contain this:
 ```yaml
